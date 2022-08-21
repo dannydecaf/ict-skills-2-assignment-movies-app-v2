@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FilterTvCard(props) {
+export default function FilterShowsCard(props) {
   const classes = useStyles();
 
   const genres = [

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext  } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -12,6 +13,8 @@ import CalendarIcon from "@material-ui/icons/CalendarTodayTwoTone";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import { MoviesContext } from "../../contexts/moviesContext";
 
 const useStyles = makeStyles({
   card: { maxWidth: 345 },
@@ -21,18 +24,44 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TvCard(props) {
+export default function TvCard({ tv, action }) {
   const classes = useStyles();
-  const tv = props.tv;
+  const { favourites, addToFavourites } = useContext(MoviesContext);
+
+  if (favourites.find((id) => id === tv.id)) {
+    tv.favourite = true;
+  } else {
+    tv.favourite = false
+  }
+
+  const handleAddToFavourite = (e) => {
+    e.preventDefault();
+    addToFavourites(tv);
+  };
+
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} title={tv.title} />
+      <CardHeader
+        className={classes.header}
+        avatar={
+          tv.favourite ? (
+            <Avatar className={classes.avatar}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : null
+        }
+        title={
+          <Typography variant="h5" component="p">
+            {tv.title}{" "}
+          </Typography>
+        }
+      />
       <CardMedia
         className={classes.media}
         image={
           tv.poster_path
             ? `https://image.tmdb.org/t/p/w500/${tv.poster_path}`
-            : `${process.env.PUBLIC_URL}/assets/tv-placeholder.jpg`
+            : `${process.env.PUBLIC_URL}/assets/film-poster-placeholder.png`
         }
       />
       <CardContent>
@@ -40,7 +69,7 @@ export default function TvCard(props) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {tv.first_air_date}
+              {tv.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -52,12 +81,12 @@ export default function TvCard(props) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={null}>
-          <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
+        {action(tv)}
+        <Link to={`/shows/${tv.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

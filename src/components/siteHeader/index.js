@@ -22,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
   inactiveLink: {
     color: 'white',
     padding : theme.spacing(1),
-    fontSize: '1.5rem'
+    fontSize: '0.8rem'
   },
   activeLink: {
     color: 'black',
     padding : theme.spacing(1),
-    fontSize: '1.5rem',
+    fontSize: '0.8rem',
     background: "#bfbfbf"
   }
 }));
@@ -42,9 +42,13 @@ const SiteHeader = () => {
   const open = Boolean(anchorEl);
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/movies/favourites" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Must Watch", path: "/movies/mustwatch" },
+    { label: "Upcoming Movies", path: "/movies/upcoming" },
+    { label: "Favourite Movies", path: "/movies/favourites" },
+    { label: "Must Watch Movies", path: "/movies/mustwatch" },
+    { label: "TV", path: "/tv" },
+    { label: "Latest TV", path: "/tv/latest" },
+    { label: "Favourite TV", path: "/tv/favourites" },
+    { label: "Must Watch TV", path: "/tv/mustwatch" },
   ];
 
   const handleMenuSelect = (pageURL) => {
