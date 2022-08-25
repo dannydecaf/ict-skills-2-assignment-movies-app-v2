@@ -4,7 +4,9 @@ import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
 import { getMovie } from "../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../components/spinner'
+import Spinner from '../components/spinner';
+import { Grid } from "@material-ui/core";
+import Cast from "../components/cast";
 
 
 const MovieDetailsPage = () => {
@@ -28,6 +30,9 @@ const MovieDetailsPage = () => {
         <>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3}}>
+            <Cast />
+            </Grid>
           </PageTemplate>
         </>
       ) : (
@@ -38,3 +43,4 @@ const MovieDetailsPage = () => {
 };
 
 export default MovieDetailsPage;
+

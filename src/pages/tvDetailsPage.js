@@ -1,18 +1,21 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import TvDetails from "../components/tvDetails";
-import PageTemplate from "../components/templateTvPage";
-import { getTv } from "../api/tmdb-api";
+import TemplateTvPage from "../components/templateTvPage";
+import { getTVSeriesDetails} from "../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../components/spinner'
+import Spinner from "../components/spinner";
 
 
-const TvDetailsPage = () => {
+const TVDetailsPage = () => {
   const { id } = useParams();
-  const { data: tv, error, isLoading, isError } = useQuery(
-    ["tv", { id: id }],
-    getTv
-  );
+  const {
+    data: tvSeries,
+    error,
+    isLoading,
+    isError,
+  } = useQuery(["tv", { id: id }], getTVSeriesDetails);
+
 
   if (isLoading) {
     return <Spinner />;
@@ -24,17 +27,17 @@ const TvDetailsPage = () => {
 
   return (
     <>
-      {tv ? (
+      {tvSeries ? (
         <>
-          <PageTemplate tv={tv}>
-            <TvDetails tv={tv} />
-          </PageTemplate>
+          <TemplateTvPage tvSeries={tvSeries}>
+            <TvDetails tvSeries={tvSeries} />
+          </TemplateTvPage>
         </>
       ) : (
-        <p>Waiting for TV Show details</p>
+        <p>Waiting for tv show details</p>
       )}
     </>
   );
 };
 
-export default TvDetailsPage;
+export default TVDetailsPage;

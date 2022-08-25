@@ -6,10 +6,9 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
-import TvPage from "./pages/tvDetailsPage";
+import TvDetailsPage from "./pages/tvDetailsPage";
 import FavouriteShowsPage from "./pages/favouriteShowsPage";
 import TvReviewPage from "./pages/tvReviewPage";
-import LatestShowsPage from "./pages/latestShowsPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -18,6 +17,10 @@ import AddMovieReviewPage from './pages/addMovieReviewPage';
 import MustWatchMoviesPage from "./pages/mustWatchMoviesPage";
 import AddTvReviewPage from './pages/addTvReviewPage';
 import MustWatchShowsPage from "./pages/mustWatchShowsPage";
+import TvShowPage from "./pages/tvPage";
+import TVDetailsPage from "./pages/tvDetailsPage";
+import SimilarMoviesPage from "./pages/similarMoviesPage";
+import SimilarTvPage from "./pages/similarTvPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -66,12 +69,13 @@ const App = () => {
           <Route path="/movies/favourites" element={<FavouriteMoviesPage/>} />
           <Route path="/movies/mustwatch" element={<MustWatchMoviesPage/>} />
           <Route path="/movies/:id" element={<MoviePage/>} />
+          <Route path="/movies/:id/similar" element={<SimilarMoviesPage/>} />
           <Route path="/tv/reviews/form" element={<AddTvReviewPage/>} />
           <Route path="/tv/reviews/:id" element={<TvReviewPage/>} />
-          <Route path="/tv/latest" element={<LatestShowsPage/>} />
           <Route path="/tv/favourites" element={<FavouriteShowsPage/>} />
-          <Route path="/tv/mustwatch" element={<MustWatchShowsPage/>} />
-          <Route path="/tv/:id" element={<TvPage />} />
+          <Route path="/tv/:id" element={<TVDetailsPage/>} />
+          <Route path="/tv/:id/similar" element={<SimilarTvPage/>} />
+          <Route path="/tv/series" element={<TvShowPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useQuery } from "react-query";
+import { getTvGenres } from "../../api/tmdb-api";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +11,8 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Spinner from '../spinner'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +29,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FilterShowsCard(props) {
   const classes = useStyles();
+  const { data, error, isLoading, isError } = useQuery("tvGenres", getTvGenres);
 
-  const genres = [
-    {id: 1, name: "Animation"},
-    {id: 2, name: "Comedy"},
-    {id: 3, name: "Thriller"}
-  ]
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+  const tvGenres = data.genres;
+  if (tvGenres[0].name !== "All"){
+    tvGenres.unshift({ id: "0", name: "All" });
+  }
+
+  
+  const handleChange = (e, type, value) => {
+    e.preventDefault();
+    props.onUserInput(type, value);
+  };
+
+  const handleTextChange = (e, props) => {
+    handleChange(e, "name", e.target.value);
+  };
+
+  const handleGenreChange = (e) => {
+    handleChange(e, "genre", e.target.value);
+  };
+
 
   return (
     <>
@@ -45,18 +71,22 @@ export default function FilterShowsCard(props) {
           id="filled-search"
           label="Search field"
           type="search"
+          value={props.titleFilter}
           variant="filled"
+          onChange={handleGenreChange}
         />
         <FormControl className={classes.formControl}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
             labelId="genre-label"
             id="genre-select"
+            value={props.genreFilter}
+            onChange={handleGenreChange}
           >
-            {genres.map((genre) => {
+            {tvGenres.map((tvGenre) => {
               return (
-                <MenuItem key={genre.id} value={genre.id}>
-                  {genre.name}
+                <MenuItem key={tvGenre.id} value={tvGenre.id}>
+                  {tvGenre.name}
                 </MenuItem>
               );
             })}

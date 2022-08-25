@@ -41,55 +41,76 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TvDetails = ( {tv}) => {
+const TvDetails = ({ tvSeries }) => {
   const classes = useStyles();
-  const [drawerOpen, setDrawerOpen] = useState(false); // New
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
+      <Typography
+        variant="h4"
+        component="p"
+      >
+        {tvSeries.name}
+      </Typography>
       <Typography variant="h5" component="h3">
         Overview
       </Typography>
-
       <Typography variant="h6" component="p">
-        {tv.overview}
+        {tvSeries.overview}
       </Typography>
       <div className={classes.chipRoot}>
-      <Paper component="ul" className={classes.chipSet}>
-        <li>
-          <Chip label="Genres" className={classes.chipLabel} color="primary" />
-        </li>
-        {tv.genres.map((g) => (
-          <li key={g.name}>
-            <Chip label={g.name} className={classes.chip} />
+        <Paper
+          component="ul"
+          className={classes.chipSet}
+        >
+          <Chip
+            
+            label={`${tvSeries.episode_run_time} min`}
+          />
+          <Chip
+            label={`Episodes: ${tvSeries.number_of_episodes}`}
+          />
+          <Chip
+            label={`First Aired: ${tvSeries.first_air_date}`}
+          />
+        </Paper>
+
+        <Paper
+          component="ul"
+          className={classes.chipSet}
+        >
+          <li>
+            <Chip
+              label="Production Countries"
+              className={classes.chipLabel}
+            />
           </li>
-        ))}
-      </Paper>
-      <Paper component="ul" className={classes.chipSet}>
-        <Chip icon={<AccessTimeIcon />} label={`${tv.runtime} min.`} />
-        <Chip
-          icon={<MonetizationIcon />}
-          label={`${tv.revenue.toLocaleString()}`}
-        />
-        <Chip
-          icon={<StarRate />}
-          label={`${tv.vote_average} (${tv.vote_count}`}
-        />
-        <Chip label={`Released: ${tv.release_date}`} />
-      </Paper>
+          {tvSeries.production_countries.map((p) => (
+            <li key={p.name}>
+              <Chip
+                label={p.name}
+                className={classes.chip}
+              />
+            </li>
+          ))}
+        </Paper>
       </div>
-      {/* New */}
-      <Fab    
+      {}
+      <Fab
         color="secondary"
         variant="extended"
-        onClick={() =>setDrawerOpen(true)}
+        onClick={() => setDrawerOpen(true)}
         className={classes.fab}
       >
         <NavigationIcon />
         Reviews
       </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <TvReviews tv={tv} />
+      <Drawer
+        anchor="top"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
       </Drawer>
     </>
   );

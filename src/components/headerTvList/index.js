@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props ) => {
+const TvHeader = (props ) => {
   const navigate = useNavigate();
   const classes = useStyles();
   const title = props.title
@@ -39,4 +39,4 @@ const Header = (props ) => {
   );
 };
 
-export default Header;
+export default TvHeader;

@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TemplateTvPage = ({ tv, children }) => {
+const TemplateTvPage = ({ tvSeries, children }) => {
   const classes = useStyles();
-  const { data , error, isLoading, isError } = useQuery(
-    ["images", { id: tv.id }],
+  const { data, error, isLoading, isError } = useQuery(
+    ["images", { id: tvSeries.id }],
     getTvImages
   );
 
@@ -37,28 +37,23 @@ const TemplateTvPage = ({ tv, children }) => {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
-  const images = data.posters 
 
   return (
     <div className={classes.root}>
-      <TvHeader tv={tv} />
-
+      <TvHeader name={tvSeries} />
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div className={classes.imageListRoot}>
             <ImageList rowHeight={500} className={classes.gridList} cols={1}>
-              {images.map((image) => (
-                <ImageListItem key={image.file_path} cols={1}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                    alt={image.poster_path}
-                  />
-                </ImageListItem>
-              ))}
+              <ImageListItem key={tvSeries.poster_path} cols={1}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${tvSeries.poster_path}`}
+                  alt={tvSeries.poster_path}
+                />
+              </ImageListItem>
             </ImageList>
           </div>
         </Grid>
-
         <Grid item xs={9}>
           {children}
         </Grid>

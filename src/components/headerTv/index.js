@@ -8,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import HomeIcon from "@material-ui/icons/Home";
 import { useNavigate } from "react-router-dom";
 
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -24,26 +22,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TvHeader = (props) => {
-  const navigate = useNavigate();
   const classes = useStyles();
-  const tv = props.tv;
+  const nav = useNavigate();
+  const name = props.title;
 
   return (
     <Paper component="div" className={classes.root}>
-      <IconButton aria-label="go back"  onClick={() => navigate(-1)}>
-        <ArrowBackIcon color="primary" fontSize="large" />
+      <IconButton aria-label="go back" onClick={() => nav(-1)}>
+        <ArrowBackIcon style={{ color: "blue" }} fontSize="large" />
       </IconButton>
-
-      <Typography variant="h4" component="h3">
-        {tv.title}
-        <a href={tv.homepage}>
-          <HomeIcon color="primary" />
-        </a>
+      <Typography
+        variant="h4"
+        component="h3"
+        style={{ color: "blue", fontSize: 25 }}
+      >
+        {name}
         <br />
-        <span className={classes.tagLine}>{`   "${tv.tagline}"`} </span>
       </Typography>
-      <IconButton aria-label="go forward"  onClick={() => navigate(1)}>
-        <ArrowForwardIcon color="primary" fontSize="large" />
+      <IconButton aria-label="go forward" onClick={() => nav(1)}>
+        <ArrowForwardIcon style={{ color: "blue" }} fontSize="large" />
       </IconButton>
     </Paper>
   );

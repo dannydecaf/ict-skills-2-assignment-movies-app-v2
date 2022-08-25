@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 export default function TvCard({ tv, action }) {
   const classes = useStyles();
-  const { favourites, addToFavourites } = useContext(MoviesContext);
+  const { favourites, addToTvFavourites } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === tv.id)) {
     tv.favourite = true;
@@ -34,9 +34,9 @@ export default function TvCard({ tv, action }) {
     tv.favourite = false
   }
 
-  const handleAddToFavourite = (e) => {
+  const handleAddToTvFavourite = (e) => {
     e.preventDefault();
-    addToFavourites(tv);
+    addToTvFavourites(tv);
   };
 
   return (
@@ -52,7 +52,7 @@ export default function TvCard({ tv, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {tv.title}{" "}
+            {tv.name}{" "}
           </Typography>
         }
       />
@@ -69,7 +69,7 @@ export default function TvCard({ tv, action }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {tv.release_date}
+              {tv.first_air_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -82,9 +82,14 @@ export default function TvCard({ tv, action }) {
       </CardContent>
       <CardActions disableSpacing>
         {action(tv)}
-        <Link to={`/shows/${tv.id}`}>
+        <Link to={`/tv/${tv.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
+          </Button>
+        </Link>
+        <Link to={`/tv/${tv.id}/similar`}>
+          <Button variant="outlined" size="medium" color="primary">
+            Similar TV Shows
           </Button>
         </Link>
       </CardActions>
