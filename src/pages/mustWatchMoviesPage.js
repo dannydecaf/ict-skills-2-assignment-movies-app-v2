@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import MovieListPageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getTv } from "../api/tmdb-api";
+import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch";
 import WriteReview from "../components/cardIcons/writeReview";
@@ -13,7 +13,7 @@ const MustWatchMoviesPage = () => {
     movieIds.map((movieId) => {
       return {
         queryKey: ["movie", { id: movieId }],
-        queryFn: getTv,
+        queryFn: getMovie,
       };
     })
   );

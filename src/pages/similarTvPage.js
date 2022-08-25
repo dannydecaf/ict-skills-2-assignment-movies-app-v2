@@ -36,7 +36,7 @@ const SimilarTvPage = (props) => {
     <>
       <TvListPageTemplate
         title="Browse Similar TV Shows"
-        shows={shows}
+        tvseries={shows}
         action={(tv) => {
           return <AddToFavouritesIcon tv={tv} />
         }}
