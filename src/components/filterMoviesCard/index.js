@@ -49,7 +49,7 @@ export default function FilterMoviesCard(props) {
   };
 
   const handleTextChange = (e, props) => {
-    handleChange(e, "name", e.target.value);
+    handleChange(e, "title", e.target.value);
   };
 
   const handleGenreChange = (e) => {
