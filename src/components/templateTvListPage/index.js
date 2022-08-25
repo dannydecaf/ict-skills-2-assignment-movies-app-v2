@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
-import TvShowList from "../tvList";
+import TvList from "../tvList";
 
 const useStyles = makeStyles((theme) =>  ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>  ({
   },
 }));
 
-function TvListPageTemplate({ tvShows, title, action }) {
+function TvListPageTemplate({ tvseries, title, action }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
@@ -28,7 +28,7 @@ function TvListPageTemplate({ tvShows, title, action }) {
 
   const genreId = Number(genreFilter);
 
-  let displayedTvShows = tvShows
+  let displayedTvShows = tvseries
     .filter((t) => {
       return t.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
@@ -48,7 +48,7 @@ function TvListPageTemplate({ tvShows, title, action }) {
         <TvHeader title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        <TvShowList action={action} tvShows={displayedTvShows} />
+        <TvList action={action} tvseries={displayedTvShows} />
       </Grid>
     </Grid>
     <Fab
