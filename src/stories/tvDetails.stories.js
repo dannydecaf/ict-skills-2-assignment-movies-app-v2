@@ -7,12 +7,8 @@ import MoviesContextProvider from "../contexts/moviesContext";
 export default {
   name: "TV Show Details Page/tvDetails",
   component: TvDetails,
-  decorators: [
-    (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
-    (Story) => <MoviesContextProvider>{Story()}</MoviesContextProvider>,
-  ],
 };
 
-export const Basic = () => <TvDetails tvShow={SampleTvData} />;
+export const Basic = () => <TvDetails tvSeries={SampleTvData} />;
 
 Basic.storyName = "Default";
