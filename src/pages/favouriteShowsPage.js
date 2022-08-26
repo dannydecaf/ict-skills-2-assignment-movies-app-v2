@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import TvListPageTemplate from "../components/templateTvListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getTv } from "../api/tmdb-api";
+import { getTVSeriesDetails } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromTvFavsIcon from "../components/cardIcons/removeFromTvFavs";
 
@@ -15,7 +15,7 @@ const FavouriteShowsPage = () => {
     tvIds.map((tvId) => {
       return {
         queryKey: ["tv", { id: tvId }],
-        queryFn: getTv,
+        queryFn: getTVSeriesDetails,
       };
     })
   );
