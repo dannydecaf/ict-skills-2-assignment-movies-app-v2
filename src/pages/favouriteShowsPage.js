@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
-import PageTemplate from "../components/templateTvListPage";
+import TvListPageTemplate from "../components/templateTvListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getTv } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
-import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
-import WriteReview from "../components/cardIcons/writeReview";
+import RemoveFromTvFavsIcon from "../components/cardIcons/removeFromTvFavs";
+
 
 const FavouriteShowsPage = () => {
-  const { favourites: tvIds } = useContext(MoviesContext);
+  const { tvFavs: tvIds } = useContext(MoviesContext);
   
   // Create an array of queries and run in parallel.
   const favouriteTvQueries = useQueries(
@@ -31,17 +31,14 @@ const FavouriteShowsPage = () => {
     return q.data;
   });
 
-  const toDo = () => true;
-
   return (
-    <PageTemplate
+    <TvListPageTemplate
       title="Favourite TV Shows"
-      shows={shows}
+      tvseries={shows}
       action={(tv) => {
         return (
           <>
-            <RemoveFromFavourites tv={tv} />
-            <WriteReview tv={tv} />
+            <RemoveFromTvFavsIcon tv={tv} />
           </>
         );
       }}

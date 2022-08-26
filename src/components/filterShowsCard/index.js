@@ -73,7 +73,7 @@ export default function FilterShowsCard(props) {
           type="search"
           value={props.titleFilter}
           variant="filled"
-          onChange={handleGenreChange}
+          onChange={handleTextChange}
         />
         <FormControl className={classes.formControl}>
           <InputLabel id="genre-label">Genre</InputLabel>
